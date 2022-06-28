@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/gradient_background_login.xml" value="0.3365" />
+        <entry key="app/src/main/res/drawable/ic_baseline_access_time_24.xml" value="0.2905" />
         <entry key="app/src/main/res/drawable/ic_baseline_account_circle_24.xml" value="0.299" />
         <entry key="app/src/main/res/drawable/ic_baseline_restaurant_24.xml" value="0.299" />
         <entry key="app/src/main/res/drawable/ic_baseline_shopping_cart_24.xml" value="0.299" />
@@ -17,9 +18,9 @@
         <entry key="app/src/main/res/drawable/side_nav_bar.xml" value="0.29" />
         <entry key="app/src/main/res/layout/activity_food_category.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/activity_food_detail.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/activity_food_detail_admin.xml" value="0.17916666666666667" />
+        <entry key="app/src/main/res/layout/activity_food_detail_admin.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.35625" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/activity_menu.xml" value="0.23072916666666668" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.33" />
@@ -30,7 +31,7 @@
         <entry key="app/src/main/res/layout/content_menu.xml" value="0.23072916666666668" />
         <entry key="app/src/main/res/layout/fragment_current_order.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_gallery.xml" value="0.23072916666666668" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.23072916666666668" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_pending_order.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_slideshow.xml" value="0.23072916666666668" />
@@ -50,6 +51,8 @@
         <entry key="app/src/main/res/menu/home.xml" value="0.35625" />
         <entry key="app/src/main/res/menu/logout.xml" value="0.8544921875" />
         <entry key="app/src/main/res/menu/menu.xml" value="0.35625" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2905" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2905" />
       </map>
     </option>
   </component>

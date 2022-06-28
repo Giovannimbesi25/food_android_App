@@ -1,14 +1,15 @@
 package com.example.mobileproject;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mobileproject.Model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -18,9 +19,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.Calendar;
-import java.util.HashMap;
 
 
 public class RegisterActivity extends AppCompatActivity {
@@ -35,6 +33,8 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+
+        //Firebase reference to insert the new user into the database
         database=FirebaseDatabase.getInstance();
         ref = database.getReference();
         mAuth = FirebaseAuth.getInstance();
@@ -61,43 +61,30 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });    }
 
-
-    private void Register()
-    {
+    //This function checks if there is already an user with the same email. If not, and both email and password fields aren't empty, the user is registered
+    private void Register() {
         String email = register_email.getText().toString().trim();
         String pass = register_password.getText().toString().trim();
         String username = register_user.getText().toString().trim();
         String address = register_address.getText().toString().trim();
-        if(email.isEmpty())
-        {
-            register_email.setError("Email can not be empty");
-        }
-        if(pass.isEmpty())
-        {
-            register_password.setError("Password can not be empty");
-        }
-        else
-        {
+        //User have to fill all the entries
+        if(email.isEmpty() || pass.isEmpty() || username.isEmpty() || address.isEmpty())
+            Toast.makeText(RegisterActivity.this, "Please fill all the entries", Toast.LENGTH_SHORT).show();
+        else {
             mAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isSuccessful())
-                    {
-
+                    if(task.isSuccessful()) {
                         User user = new User(email,pass,username,address);
                         Toast.makeText(RegisterActivity.this, "User registered successfully", Toast.LENGTH_SHORT).show();
                         FirebaseUser fuser = mAuth.getCurrentUser();
                         String fuid = fuser.getUid();
-                        System.out.println("Password"+pass);
-                        System.out.println("User:"+ user.getPassword());
                         ref.child("users").child(fuid).setValue(user);
                         startActivity(new Intent(RegisterActivity.this, Home.class));
                         finish();
                     }
                     else
-                    {
                         Toast.makeText(RegisterActivity.this, "Registration Failed"+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
                 }
             });
         }

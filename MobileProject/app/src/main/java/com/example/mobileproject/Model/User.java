@@ -1,3 +1,5 @@
+//Class used to store User's information as a child of "users" firebase's root
+
 package com.example.mobileproject.Model;
 
 public class User

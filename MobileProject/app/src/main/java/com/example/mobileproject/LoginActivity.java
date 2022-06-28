@@ -1,9 +1,6 @@
+//Login Activity whit email and password
 package com.example.mobileproject;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +8,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -39,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                finish();
             }
         });
 
@@ -53,31 +54,28 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    //The login function checks if exists an user with the credientials inserted
+    //If yes, the user will be moved to HomeFragment
     private void login() {
         String user = login_email.getText().toString().trim();
         String pass = login_password.getText().toString().trim();
 
-        if(user.isEmpty()){
+        if(user.isEmpty())
             login_email.setError("Email can not be empty");
-        }
-        if(pass.isEmpty()){
+        if(pass.isEmpty())
             login_password.setError("Password can not be empty");
-        }
-        else{
+        else {
             mAuth.signInWithEmailAndPassword(user,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isSuccessful()){
-                        if(mAuth.getUid().equals("42ng3HSgdmPUil5K6Zs4HoQW1kx1")) {
+                    if(task.isSuccessful()) {
+                        if (mAuth.getUid().equals("42ng3HSgdmPUil5K6Zs4HoQW1kx1"))
                             Toast.makeText(LoginActivity.this, "Ciao Bosss!", Toast.LENGTH_LONG).show();
-                            
-                        }
-                        else {
-                            System.out.println("Utente normale");
-                            Toast.makeText(LoginActivity.this, "Sign In Successfully!", Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(LoginActivity.this, Home.class));
-                            finish();
-                        }
+                        else
+                            Toast.makeText(LoginActivity.this, "Welcome!", Toast.LENGTH_LONG).show();
+
+                        startActivity(new Intent(LoginActivity.this, Home.class));
+                        finish();
                     }
                     else
                         Toast.makeText(LoginActivity.this, "Sign In Failed!"+task.getException().getMessage(), Toast.LENGTH_LONG).show();

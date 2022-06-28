@@ -1,4 +1,8 @@
+//The Home Activity is the Most Important One. It manages all the fragments in the navigation bar
 package com.example.mobileproject;
+
+import android.os.Bundle;
+import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,22 +10,17 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.os.Bundle;
-import android.view.MenuItem;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
-import com.example.mobileproject.databinding.ActivityHomeBinding;
-import com.example.mobileproject.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class Home extends AppCompatActivity {
 
-    BottomNavigationView bottomNavigationView;
-    HomeFragment homeFragment = new HomeFragment();
-    ProfileFragment profileFragment = new ProfileFragment();
-    PendingOrderFragment pendingOrderFragment = new PendingOrderFragment();
-    CurrentOrderFragment currentOrderFragment = new CurrentOrderFragment();
+
+    private BottomNavigationView bottomNavigationView;
+    private MenuFragment homeFragment = new MenuFragment();
+    private ProfileFragment profileFragment = new ProfileFragment();
+    private PendingOrderFragment pendingOrderFragment = new PendingOrderFragment();
+    private CurrentOrderFragment currentOrderFragment = new CurrentOrderFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +30,9 @@ public class Home extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.user_bottom_navigation);
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,homeFragment).commit();
 
+
+        //Switch to choose the right Fragment when a navigation bar's icon is clicked
+        //THe R.id.name is the one used in bottom_navigation.xml  menu object
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -54,6 +56,7 @@ public class Home extends AppCompatActivity {
 
     }
 
+    //Function which allow the replacement of a fragment with another
     private void replaceFragment(Fragment fragment){
 
         FragmentManager fragmentManager = getSupportFragmentManager();

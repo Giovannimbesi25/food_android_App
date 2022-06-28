@@ -1,21 +1,22 @@
+
+//This Fragment show all the orders submitted by the user
+//It consists of a title and a recycle view
 package com.example.mobileproject;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
-
+import com.example.mobileproject.Adapter.PO_Adapter;
 import com.example.mobileproject.Interface.OnItemClickListener;
 import com.example.mobileproject.Model.PendingOrder;
-import com.example.mobileproject.Model.ProductOrdered;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -25,17 +26,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 public class PendingOrderFragment extends Fragment  implements OnItemClickListener {
 
-    OnItemClickListener listener;
-    RecyclerView pending_order_recycle_view;
-    ArrayList<PendingOrder> list;
-    PO_Adapter adapter;
-    TextView pending_order_fragment_title;
+    private OnItemClickListener listener;
+    private RecyclerView pending_order_recycle_view;
+    private ArrayList<PendingOrder> list;
+    private PO_Adapter adapter;
+    private TextView pending_order_fragment_title;
 
     private FirebaseAuth mAuth;
     private FirebaseDatabase database;
@@ -46,12 +45,11 @@ public class PendingOrderFragment extends Fragment  implements OnItemClickListen
     }
 
 
-
+    //Initialize all layout elements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        System.out.println("Ciao sono nel fragment pending order");
         View view = inflater.inflate(R.layout.fragment_pending_order, container, false);
 
         //Initialize layout object and PO_Adapter
@@ -69,7 +67,7 @@ public class PendingOrderFragment extends Fragment  implements OnItemClickListen
         String fuid = fuser.getUid();
 
 
-
+        //This function manages the recycle view and shows all the submitted orders
         ref.child("users").child(fuid).child("PendingsOrder").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -90,6 +88,8 @@ public class PendingOrderFragment extends Fragment  implements OnItemClickListen
 
         return view;
     }
+
+    //At this time the click on the Product in the PendingOrderFragment isn't managed, but in the future may be a new functionality
 
     @Override
     public void onItemClick(int position) {

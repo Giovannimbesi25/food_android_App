@@ -1,9 +1,11 @@
+//This class allow the users to see the Preview of the current Order
 package com.example.mobileproject.Model;
 
 import java.io.Serializable;
 
 public class ProductOrdered implements Serializable {
     String  Name, Quantity, Prezzo, Totale;
+
 
     public ProductOrdered(String name,String quantity ,String prezzo, String totale) {
         Name = name;

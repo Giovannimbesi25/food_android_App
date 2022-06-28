@@ -16,7 +16,7 @@
         android:theme="@style/Theme.MobileProject"
         tools:targetApi="31">
         <activity
-            android:name=".FoodDetail"
+            android:name=".FoodDetails"
             android:exported="false" />
         <activity
             android:name=".Home"

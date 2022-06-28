@@ -1,3 +1,5 @@
+//Class Used in FoodDetails Activity to show all product's informations
+
 package com.example.mobileproject.Model;
 
 import java.io.Serializable;

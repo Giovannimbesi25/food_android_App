@@ -63,17 +63,55 @@
             android:textSize="20dp"
             android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/profile_fragment_addressbtn"
-            android:layout_below="@id/profile_fragment_address"
-            android:text="Change Address"
-            android:textSize="15dp"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="70dp"
+
+        <LinearLayout
+            android:id="@+id/layout_fragment_profile_linear"
+            android:layout_marginTop="80dp"
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_below="@id/profile_fragment_address">
+
+
+
+
+            <Button
+                android:id="@+id/profile_fragment_emailbtn"
+                android:text="Change Email"
+                android:textSize="11dp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:id="@+id/profile_fragment_passbtn"
+                android:text="Change Passw"
+                android:textSize="11dp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:id="@+id/profile_fragment_addressbtn"
+                android:text="Change Address"
+                android:textSize="11dp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
 
 
         <Button
@@ -82,9 +120,9 @@
             android:textStyle="bold"
             android:text="LOGOUT"
             android:textSize="15dp"
-            android:layout_below="@id/profile_fragment_addressbtn"
+            android:layout_below="@id/layout_fragment_profile_linear"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="40dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

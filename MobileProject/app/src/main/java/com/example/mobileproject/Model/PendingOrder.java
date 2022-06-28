@@ -1,3 +1,4 @@
+//Class Pending Order to Show simple informations about the submitted orders
 package com.example.mobileproject.Model;
 
 import java.io.Serializable;
@@ -5,8 +6,7 @@ import java.io.Serializable;
 public class PendingOrder implements Serializable {
     String Totale,  DateTime,  Indirizzo;
 
-    public PendingOrder() {
-    }
+    public PendingOrder() {}
 
     public PendingOrder(String totale, String dateTime, String indirizzo) {
         Totale = totale;

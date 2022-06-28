@@ -1,20 +1,19 @@
-
+//The Main Activity is the splash page a user will find at his first access
 package com.example.mobileproject;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btnSignIn, btnSignUp;
+    private Button btnSignIn, btnSignUp;
     private FirebaseAuth mAuth;
 
     @Override
@@ -26,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         btnSignUp = findViewById(R.id.btnSignUp);
 
 
-
+        //Go to the Register Activity
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -35,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        //Go to the Login Activity
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,24 +45,18 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
-
-
     }
+
+    //If an user, is already registered it will be redirected to the HomeFragment
     @Override
     public void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser!=null){
-            if(currentUser.getUid() == "42ng3HSgdmPUil5K6Zs4HoQW1kx1"){
-                System.out.println("Ciao Boss");
-            }
+            //The Home Activity manage all the fragments
             startActivity(new Intent(MainActivity.this, Home.class));
             finish();
         }
-
-
-
 
     }
 

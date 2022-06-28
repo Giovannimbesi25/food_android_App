@@ -1,14 +1,7 @@
+//This Fragment Show all products added by the user in the current order
 package com.example.mobileproject;
 
-import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +9,15 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.mobileproject.Adapter.CO_Adapter;
 import com.example.mobileproject.Interface.OnItemClickListener;
 import com.example.mobileproject.Model.PendingOrder;
 import com.example.mobileproject.Model.ProductOrdered;
-import com.example.mobileproject.Model.ProductPreview;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,26 +31,18 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CurrentOrderFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class CurrentOrderFragment extends Fragment  implements OnItemClickListener {
 
-    OnItemClickListener listener;
-    RecyclerView recyclerView;
-    ArrayList<ProductOrdered> list;
-    CO_Adapter adapter;
-    TextView current_order_title;
-    Button current_order_btn;
+
+    private RecyclerView recyclerView;
+    private ArrayList<ProductOrdered> list;
+    private CO_Adapter adapter;
+    private TextView current_order_title;
+    private Button current_order_btn;
     float totale_ordini;
 
-    private FirebaseAuth mAuth;
-    private FirebaseDatabase database;
     private DatabaseReference ref;
 
 
@@ -61,14 +51,11 @@ public class CurrentOrderFragment extends Fragment  implements OnItemClickListen
         // Required empty public constructor
     }
 
-
-
-
+    //Initialize all layout elements and fragment parameters
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        System.out.println("Ciao sono nel fragment current order");
         View view = inflater.inflate(R.layout.fragment_current_order, container, false);
 
         current_order_title = view.findViewById(R.id.current_order_title);
@@ -79,19 +66,23 @@ public class CurrentOrderFragment extends Fragment  implements OnItemClickListen
         adapter = new CO_Adapter(view.getContext(), list, this::onItemClick);
         recyclerView.setAdapter(adapter);
 
+
+        //Firebase reference
         ref = FirebaseDatabase.getInstance().getReference();
 
-        mAuth = FirebaseAuth.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser fuser = mAuth.getCurrentUser();
         String fuid = fuser.getUid();
 
-
+        //This Method allow to show the current order preview displaying all products added.
         ref.child("users").child(fuid).child("CurrentOrder").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Boolean trovato=false;
                 Integer position = 0;
                 totale_ordini = 0;
+
+                //this Script allow to not show double elements if there is some change(product deleted or modified)
                 for(DataSnapshot dataSnapshot: snapshot.getChildren()) {
                     ProductOrdered productOrdered = dataSnapshot.getValue(ProductOrdered.class);
 
@@ -103,16 +94,11 @@ public class CurrentOrderFragment extends Fragment  implements OnItemClickListen
                     }
                     if (trovato == false) {
                         list.add(productOrdered);
-                        Pattern pat = Pattern.compile("[-]?[0-9]*\\.?[0-9]+");
-                        Matcher m = pat.matcher(productOrdered.getTotale());
                         totale_ordini += Float.parseFloat(productOrdered.getTotale());
 
                     }
                     else {
                         list.remove(position);
-                        Pattern pat = Pattern.compile("[-]?[0-9]*\\.?[0-9]+");
-                        Matcher m = pat.matcher(productOrdered.getTotale());
-
                         totale_ordini += Float.parseFloat(productOrdered.getTotale());
                 }
 
@@ -127,6 +113,7 @@ public class CurrentOrderFragment extends Fragment  implements OnItemClickListen
             }
         });
 
+        //This method allow the user to submit an order(only if it is not empty)
         current_order_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,7 +127,6 @@ public class CurrentOrderFragment extends Fragment  implements OnItemClickListen
                         @Override
                         public void onComplete(@NonNull Task<DataSnapshot> task) {
                             if (!task.isSuccessful()) {
-                                System.out.println(task.getException());
                             } else {
 
                                 //Get current Date
@@ -164,7 +150,7 @@ public class CurrentOrderFragment extends Fragment  implements OnItemClickListen
                             }
                         }
                     });
-
+                    //The object is added to the root Current order at the user specified by UID
                     ref = FirebaseDatabase.getInstance().getReference();
                     ref.child("users").child(fuid).child("CurrentOrder").removeValue();
                     list.clear();
@@ -182,10 +168,13 @@ public class CurrentOrderFragment extends Fragment  implements OnItemClickListen
         return view;
     }
 
+
+    //Update the Total every time a new product is added, deleted or the order is submitted
     private void updateOrderTotal(float totale_ordini) {
         current_order_title.setText("Totale Ordine \n     " + String.format("%.2f", totale_ordini));
     }
 
+    //At this time the onClick method in the CurrentOrderFragment isn't managed, but in the future may be implemented a new functionality
     @Override
     public void onItemClick(int position) {
         System.out.println("Item clicked");

@@ -27,8 +27,7 @@
             android:id="@+id/pending_order_recycle_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignTop="@id/pending_order_fragment_title"
-            android:layout_marginTop="60dp" />
+            android:layout_below="@id/pending_order_fragment_title" />
 
     </RelativeLayout>
 
